@@ -3,7 +3,7 @@
 using namespace std;
 
 const int N = 105;
-vector<int> adj[N];
+vector<int> g[N];
 bool vis[N];
 int indeg[N];
 int main() {
@@ -13,7 +13,7 @@ int main() {
   while(cin >> n >> m and n) {
     while(m--) {
     int u, v; cin >> u >> v;
-    adj[u].push_back(v);
+    g[u].push_back(v);
     indeg[v]++;
   }
   vector<int> zero;
@@ -26,7 +26,7 @@ int main() {
     zero.pop_back();
     vis[cur] = true;
     ans.push_back(cur);
-    for(auto v : adj[cur]) {
+    for(auto v : g[cur]) {
       indeg[v]--;
       if(!vis[v] and indeg[v] == 0) {
         zero.push_back(v);
@@ -37,7 +37,7 @@ int main() {
   for(auto u : ans) cout << u << " ";
   cout << "\n";
   for(int i = 1; i <= n; i++) {
-    adj[i].clear();
+    g[i].clear();
     vis[i] = false;
   }
  }

@@ -1,47 +1,50 @@
 //In The Name of ALLAH
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
-const int N = 205;
-vector<int> adj[N];
-bool vis[N];
+const int mod = 1e9 + 7;
+#define int long long
+const int N = 1e3 + 7;
+bool vis[N], ok;
 int col[N];
-bool ok;
+vector<int> g[N];
 
 void dfs(int u) {
   vis[u] = true;
-  for(auto v : adj[u]) {
+  for(auto v : g[u]) {
     if(!vis[v]) {
-      col[v] = col[u] ^ 1; // u col ja hove v tar negative hobe;
+      col[v] = col[u] ^ 1;
       dfs(v);
-    }
+    } 
     else {
-      if(col[v] == col[u]) ok = false;
+        if(col[u] == col[v]) {
+          ok = false;
+        }
     }
   }
 }
-int main() {
-  int n;
-  while(cin >> n and n) {
-  int m; cin >> m;
-  while(m--) {
-    int u, v; cin >> u >> v;
-    adj[u].push_back(v);
-    adj[v].push_back(u);
-  } 
-  ok = true;
-  for(int i = 0; i < n; i++) {
-    if(!vis[i]) {
-      dfs(i);
+int32_t main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  int n, m;
+  while(cin >> n >> m and n) {
+    while(m--) {
+      int u, v; cin >> u >> v;
+      g[u].push_back(v);
+      g[v].push_back(u);
+    }
+    ok = true;
+    for(int i = 0; i < n; i++) {
+      if(!vis[i]) {
+        dfs(i);
+      }
+    }
+    if(ok) cout << "BICOLORABLE.\n";
+    else cout << "NOT BICOLORABLE.\n";
+    for(int i = 0; i < n; i++) {
+      vis[i] = false;
+      g[i].clear();
+      col[i] = 0;
     }
   }
-  if(ok) cout << "BICOLORABLE.\n";
-  else cout << "NOT BICOLORABLE.\n";
-  for(int i = 0; i < n; i++) {
-    adj[i].clear();
-    vis[i] = false;
-    col[i] = 0;
-  }
- }
   return 0;
 }
