@@ -2,10 +2,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 const int mod = 1e9 + 7;
-#define ll long long
+#define int long long
+
 bool cmp(pair<int,int> a, pair<int,int> b) {
   return a.second > b.second;
 }
+
 void solve() {
    int end; cin >> end; int l, r;
    vector<pair<int,int>> v, ans;
@@ -39,7 +41,7 @@ void solve() {
    }
    cout << "\n";
 }
-int main() {
+int32_t main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
   int t = 1; 
